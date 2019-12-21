@@ -1,0 +1,46 @@
+{
+  "name": "code-tray",
+  "description": "Open VSCode projects from tray menu.",
+  "version": "1.0.0",
+  "main": "main.js",
+  "repository": "",
+  "author": "Bitter",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . codetray --platform linux --arch x64 --out dist/",
+    "deb64": "electron-installer-debian --src dist/codetray-linux-x64/ --dest dist/installers/ --arch amd64"
+  },
+  "dependencies": {
+    "@sentry/electron": "0.17.1",
+    "electron-store": "^4.0.0",
+    "fix-path": "^2.1.0",
+    "npm-run-all": "^4.1.5"
+  },
+  "devDependencies": {
+    "electron-installer-debian": "^0.6.0",
+    "electron": "^5.0.7",
+    "electron-builder": "^21.0.15",
+    "electron-packager": "^14.1.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "nodemon": "^1.19.1"
+  },
+  "build": {
+    "appId": "com.rocketseat.codetray",
+    "productName": "Code Tray",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "category": "Utility",
+      "icon": "icon.png",
+      "target": [
+        "deb",
+        "snap",
+        "rpm"
+      ]
+    }
+  }
+}
