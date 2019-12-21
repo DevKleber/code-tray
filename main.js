@@ -1,9 +1,9 @@
 const { resolve, basename } = require('path');
-const {
-  app, Menu, Tray, dialog,
-} = require('electron');
+const { app, Menu, Tray, dialog, } = require('electron');
 
 const { spawn } = require('child_process');
+
+
 const fixPath = require('fix-path');
 const fs = require('fs');
 
@@ -12,7 +12,7 @@ const Sentry = require('@sentry/electron');
 
 fixPath();
 
-Sentry.init({ dsn: 'https://18c9943a576d41248b195b5678f2724e@sentry.io/1506479' });
+// Sentry.init({ dsn: 'https://18c9943a576d41248b195b5678f2724e@sentry.io/1506479' });
 
 const schema = {
   projects: {
@@ -26,7 +26,9 @@ if (app.dock) {
   app.dock.hide();
 }
 
-const store = new Store({ schema });
+const store = new Store({
+  schema
+});
 
 function getLocale() {
   const locale = app.getLocale();
@@ -48,15 +50,41 @@ function render(tray = mainTray) {
 
   const items = projects.map(({ name, path }) => ({
     label: name,
-    submenu: [
-      {
+    // icon: resolve(__dirname, 'assets', 'code.png'),
+    
+    click: () => {
+      spawn('code', [path], {
+        shell: true
+      });
+    },
+    submenu: [{
         label: locale.open,
+        icon: resolve(__dirname, 'assets', 'vscode.png'),
         click: () => {
-          spawn('code', [path], { shell: true });
+          spawn('code', [path], {
+            shell: true
+          });
+        },
+      },
+      {
+        label: locale.folder,
+        icon: resolve(__dirname, 'assets', 'folder1.png'),
+        click: () => {
+          const release = spawn('lsb_release', ['-i']);
+          release.stdout.on('data', (data) => {
+            let distro = data.toString().replace(/\s/g, '').split(":")[1];
+            if(distro == 'LinuxMint'){
+              spawn('nemo', [path], { shell: true });
+            }else{
+              spawn('nautilus', [path], { shell: true });
+            }            
+          });
+
         },
       },
       {
         label: locale.remove,
+        icon: resolve(__dirname, 'assets', 'delete.png'),
         click: () => {
           store.set('projects', JSON.stringify(projects.filter(item => item.path !== path)));
           render();
@@ -65,11 +93,13 @@ function render(tray = mainTray) {
     ],
   }));
 
-  const contextMenu = Menu.buildFromTemplate([
-    {
+  const contextMenu = Menu.buildFromTemplate([{
       label: locale.add,
+      icon: resolve(__dirname, 'assets', 'plus.png'),
       click: () => {
-        const result = dialog.showOpenDialog({ properties: ['openDirectory'] });
+        const result = dialog.showOpenDialog({
+          properties: ['openDirectory']
+        });
 
         if (!result) return;
 
@@ -102,6 +132,7 @@ function render(tray = mainTray) {
       label: locale.close,
       role: 'quit',
       enabled: true,
+      // icon: resolve(__dirname, 'assets', 'logout.png'),
     },
   ]);
 

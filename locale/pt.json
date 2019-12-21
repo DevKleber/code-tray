@@ -1,5 +1,6 @@
 {
     "open": "Abrir no VSCode",
+    "folder": "Abrir pasta do projeto",
     "add": "Adicionar novo projeto...",
     "close": "Fechar Code Tray",
     "remove": "Remover"
