@@ -2,7 +2,7 @@ const { resolve, basename } = require('path');
 const { app, Menu, Tray, dialog, } = require('electron');
 
 const { spawn } = require('child_process');
-
+const terminal = 'gnome-terminal';
 
 const fixPath = require('fix-path');
 const fs = require('fs');
@@ -82,6 +82,14 @@ function render(tray = mainTray) {
 
         },
       },
+      {
+        label: locale.terminal,
+        icon: resolve(__dirname, 'assets', 'terminal.png'),
+        click: () => {
+          spawn (terminal, { cwd: path });
+        },
+      },
+      
       {
         label: locale.remove,
         icon: resolve(__dirname, 'assets', 'delete.png'),

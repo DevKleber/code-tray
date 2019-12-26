@@ -2,6 +2,7 @@
     "open": "Abrir no VSCode",
     "folder": "Abrir pasta do projeto",
     "add": "Adicionar novo projeto...",
+    "terminal": "Abrir terminal",
     "close": "Fechar Code Tray",
     "remove": "Remover"
 }
