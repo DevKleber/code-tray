@@ -18,14 +18,14 @@
     "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
-    "electron": "^18.3.7",
-    "electron-builder": "^22.11.3",
+    "electron": "^29.1.0",
+    "electron-builder": "^24.13.3",
     "electron-installer-debian": "^3.1.0",
-    "electron-packager": "^15.2.0",
+    "electron-packager": "^17.1.2",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.22.1",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.22"
   },
   "build": {
     "appId": "com.rocketseat.codetray",
