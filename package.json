@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "electron": "^18.3.7",
-    "electron-builder": "^22.11.3",
+    "electron-builder": "^24.13.3",
     "electron-installer-debian": "^3.1.0",
     "electron-packager": "^15.2.0",
     "eslint": "^5.16.0",
